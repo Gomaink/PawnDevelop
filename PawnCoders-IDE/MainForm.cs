@@ -121,12 +121,12 @@ namespace PawnCoders_IDE
 		
 		void AjudaToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			MessageBox.Show("Entre em nosso forúm/nDisponivel em breve!");
+			MessageBox.Show("Todo suporte disponível em nosso discord\nhttps://discord.gg/kvgnyE92BK");
 		}
 		
 		void RepositorioToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			MessageBox.Show("Acesse nosso forúm!\nhttps://github.com/Gomaink/PawnCoders-IDE");
+			MessageBox.Show("PawnDevelop é um programa open-source\nhttps://github.com/Gomaink/PawnDevelop");
 		}
 		
 		void Button2Click(object sender, EventArgs e)
@@ -259,15 +259,164 @@ namespace PawnCoders_IDE
 			DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
 			this.handlers = default(DiscordRpc.EventHandlers);
 			DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
-			this.presence.details = "Text 1";
-			this.presence.state = "Text 2";
+			this.presence.details = "Editando: ";
+			this.presence.state = "Em: ";
 			this.presence.largeImageKey = "pawncoders";
 			this.presence.smallImageKey = "pawn";
 			this.presence.startTimestamp = 1507665886;
 			this.presence.endTimestamp = 1507665886;
 			this.presence.largeImageText = "Editando um arquivo .pwn";
-			this.presence.smallImageText = "Pawn Dev 0.1";
+			this.presence.smallImageText = "Pawn Develop v0.1";
 			DiscordRpc.UpdatePresence(ref this.presence);
 		}
-	}
+
+        private void escolherTemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void escuroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			Color white = Color.FromName("ControlLight");
+			Color black = Color.FromArgb(31, 31, 31);
+			richTextBox1.BackColor = black;
+			richTextBox1.ForeColor = white;
+
+			Color lgray = Color.FromArgb(64, 64, 64);
+
+
+			//Alterando as cores dos menus's
+			arquivoToolStripMenuItem.BackColor = black;
+			editarToolStripMenuItem.BackColor = black;
+			ferramentasToolStripMenuItem.BackColor = black;
+			compiladorToolStripMenuItem.BackColor = black;
+			sobreToolStripMenuItem.BackColor = black;
+
+			arquivoToolStripMenuItem.ForeColor = white;
+			editarToolStripMenuItem.ForeColor = white;
+			ferramentasToolStripMenuItem.ForeColor = white;
+			compiladorToolStripMenuItem.ForeColor = white;
+			sobreToolStripMenuItem.ForeColor = white;
+
+			//Alterando a cor da barra dos menu's
+			menuStrip1.BackColor = black;
+			richTextBox2.BackColor = lgray;
+
+			//Alterando as cores do menu "arquivo"
+			novoToolStripMenuItem.BackColor = black;
+			abrirToolStripMenuItem.BackColor = black;
+			salvarToolStripMenuItem.BackColor = black;
+			sairToolStripMenuItem.BackColor = black;
+
+			novoToolStripMenuItem.ForeColor = white;
+			abrirToolStripMenuItem.ForeColor = white;
+			salvarToolStripMenuItem.ForeColor = white;
+			sairToolStripMenuItem.ForeColor = white;
+
+			//Alterando as cores do menu "ferramentas"
+			fontesToolStripMenuItem.ForeColor = white;
+			escolherTemaToolStripMenuItem.ForeColor = white;
+
+			fontesToolStripMenuItem.BackColor = black;
+			escolherTemaToolStripMenuItem.BackColor = black;
+
+			//Alterando as cores do menu "compilador"
+			compilarToolStripMenuItem.BackColor = black;
+
+			compilarToolStripMenuItem.ForeColor = white;
+
+			//Alterando as cores do menu "sobre"
+			ajudaToolStripMenuItem.BackColor = black;
+			repositorioToolStripMenuItem.BackColor = black;
+
+			ajudaToolStripMenuItem.ForeColor = white;
+			repositorioToolStripMenuItem.ForeColor = white;
+
+			//Alterando as cores do menu "editar"
+			desfazerToolStripMenuItem.BackColor = black;
+			refazerToolStripMenuItem.BackColor = black;
+			colarToolStripMenuItem.BackColor = black;
+			copiarToolStripMenuItem.BackColor = black;
+			deletarToolStripMenuItem.BackColor = black;
+			selecionarTudoToolStripMenuItem.BackColor = black;
+
+			desfazerToolStripMenuItem.ForeColor = white;
+			refazerToolStripMenuItem.ForeColor = white;
+			colarToolStripMenuItem.ForeColor = white;
+			copiarToolStripMenuItem.ForeColor = white;
+			deletarToolStripMenuItem.ForeColor = white;
+			selecionarTudoToolStripMenuItem.ForeColor = white;
+		}
+
+        private void claroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			Color white = Color.FromName("White");
+			richTextBox1.BackColor = white;
+			Color black = Color.FromName("Black");
+			richTextBox1.ForeColor = black;
+			Color lgray = Color.FromName("LightGray");
+
+			//Alterando as cores dos menus's
+			arquivoToolStripMenuItem.BackColor = white;
+			editarToolStripMenuItem.BackColor = white;
+			ferramentasToolStripMenuItem.BackColor = white;
+			compiladorToolStripMenuItem.BackColor = white;
+			sobreToolStripMenuItem.BackColor = white;
+
+			arquivoToolStripMenuItem.ForeColor = black;
+			editarToolStripMenuItem.ForeColor = black;
+			ferramentasToolStripMenuItem.ForeColor = black;
+			compiladorToolStripMenuItem.ForeColor = black;
+			sobreToolStripMenuItem.ForeColor = black;
+
+			//Alterando a cor da barra dos menu's
+			menuStrip1.BackColor = white;
+			richTextBox2.BackColor = lgray;
+
+			//Alterando as cores do menu "arquivo"
+			novoToolStripMenuItem.BackColor = white;
+			abrirToolStripMenuItem.BackColor = white;
+			salvarToolStripMenuItem.BackColor = white;
+			sairToolStripMenuItem.BackColor = white;
+
+			novoToolStripMenuItem.ForeColor = black;
+			abrirToolStripMenuItem.ForeColor = black;
+			salvarToolStripMenuItem.ForeColor = black;
+			sairToolStripMenuItem.ForeColor = black;
+
+			//Alterando as cores do menu "ferramentas"
+			fontesToolStripMenuItem.ForeColor = black;
+			escolherTemaToolStripMenuItem.ForeColor = black;
+
+			fontesToolStripMenuItem.BackColor = white;
+			escolherTemaToolStripMenuItem.BackColor = white;
+
+			//Alterando as cores do menu "compilador"
+			compilarToolStripMenuItem.BackColor = white;
+
+			compilarToolStripMenuItem.ForeColor = black;
+
+			//Alterando as cores do menu "sobre"
+			ajudaToolStripMenuItem.BackColor = white;
+			repositorioToolStripMenuItem.BackColor = white;
+
+			ajudaToolStripMenuItem.ForeColor = black;
+			repositorioToolStripMenuItem.ForeColor = black;
+
+			//Alterando as cores do menu "editar"
+			desfazerToolStripMenuItem.BackColor = white;
+			refazerToolStripMenuItem.BackColor = white;
+			colarToolStripMenuItem.BackColor = white;
+			copiarToolStripMenuItem.BackColor = white;
+			deletarToolStripMenuItem.BackColor = white;
+			selecionarTudoToolStripMenuItem.BackColor = white;
+
+			desfazerToolStripMenuItem.ForeColor = black;
+			refazerToolStripMenuItem.ForeColor = black;
+			colarToolStripMenuItem.ForeColor = black;
+			copiarToolStripMenuItem.ForeColor = black;
+			deletarToolStripMenuItem.ForeColor = black;
+			selecionarTudoToolStripMenuItem.ForeColor = black;
+		}
+    }
 }
