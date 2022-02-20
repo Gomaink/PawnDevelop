@@ -84,34 +84,24 @@ namespace PawnCoders_IDE
 			
 		}
 		
-		void DesfazerToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void RefazerToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			
-		}
-		
 		void CopiarToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			
+			richTextBox1.Copy();
 		}
 		
 		void ColarToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			
+			richTextBox1.Paste();
 		}
 		
 		void DeletarToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			
+			richTextBox1.SelectedText = "";
 		}
 		
 		void SelecionarTudoToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			
+			richTextBox1.SelectAll();
 		}
 		
 		void CompilarToolStripMenuItemClick(object sender, EventArgs e)
@@ -121,12 +111,20 @@ namespace PawnCoders_IDE
 		
 		void AjudaToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			MessageBox.Show("Todo suporte disponível em nosso discord\nhttps://discord.gg/kvgnyE92BK");
+			var result = MessageBox.Show("Todo suporte disponível em nosso discord.\n\nhttps://discord.gg/kvgnyE92BK");
+			if (result == DialogResult.OK)
+			{
+				Process.Start("https://discord.gg/kvgnyE92BK");
+			}
 		}
-		
+
 		void RepositorioToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			MessageBox.Show("PawnDevelop é um programa open-source\nhttps://github.com/Gomaink/PawnDevelop");
+			var result = MessageBox.Show("PawnDevelop é um programa open-source.\n\nhttps://github.com/Gomaink/PawnDevelop");
+			if (result == DialogResult.OK)
+			{
+				Process.Start("https://github.com/Gomaink/PawnDevelop");
+			}
 		}
 		
 		void Button2Click(object sender, EventArgs e)
@@ -158,23 +156,45 @@ namespace PawnCoders_IDE
 		public static class Global
 	    {
 	        public static string diretorio;
+			public static string nome;
 	    }
 		private void OpenFile()
 		{
 			try
 			{
-				OpenFileDialog ofd =  new OpenFileDialog();
-				if(ofd.ShowDialog()==DialogResult.OK)
+				OpenFileDialog ofd = new OpenFileDialog();
+				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 					StreamReader reader = new StreamReader(ofd.FileName);
-					
+
 					richTextBox1.Text = reader.ReadToEnd();
 					MessageBox.Show(ofd.FileName);
-					
+
 					Global.diretorio = ofd.FileName;
+
+					char[] delimiterChars = { '\\' };
+					string[] words = Global.diretorio.Split(delimiterChars);
+					int total = words.Length - 1;
+					int total2 = words.Length - 3;
+
+					this.handlers = default(DiscordRpc.EventHandlers);
+					DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
+					this.handlers = default(DiscordRpc.EventHandlers);
+					DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
+					this.presence.details = $"Editando: {words[total]}";
+					this.presence.state = $"Em: {words[total2]}";
+					this.presence.largeImageKey = "pawncoders";
+					this.presence.smallImageKey = "pawn";
+					this.presence.startTimestamp = 1507665886;
+					this.presence.endTimestamp = 1507665886;
+					this.presence.largeImageText = "Editando um arquivo .pwn";
+					this.presence.smallImageText = "Pawn Develop v0.1";
+					DiscordRpc.UpdatePresence(ref this.presence);
+
 				}
 			}
-			catch(Exception ex)
+
+			catch (Exception ex)
 			{
 				MessageBox.Show("Erro: " + ex.Message);
 			}
@@ -227,11 +247,15 @@ namespace PawnCoders_IDE
 		
 		private void Compilar()
 		{
+			/*char[] delimiterChars = { '\\' };
+			string[] words = Global.diretorio.Split(delimiterChars);
+			int total = words.Length - 2;*/
+
 			ProcessStartInfo startInfo = new ProcessStartInfo();
 			startInfo.FileName = "E:/Programacao/bleh/pawno/pawncc.exe";
 
-
-			startInfo.Arguments = String.Format("{0} -De:/Programacao/bleh/gamemodes -;+ -(+ -d3", Global.diretorio);
+			//startInfo.Arguments = String.Format($"{Global.diretorio} {words[total]} -;+ -(+ -d3");
+			startInfo.Arguments = String.Format($"{0} -De:/Programacao/bleh/gamemodes -;+ -(+ -d3", Global.diretorio);
 
 			//startInfo.Arguments = "e:/Programacao/bleh/gamemodes/main.pwn -De:/Programacao/bleh/gamemodes -;+ -(+ -d3";
 			Process.Start(startInfo);
@@ -241,7 +265,7 @@ namespace PawnCoders_IDE
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
-        }
+		}
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -259,12 +283,10 @@ namespace PawnCoders_IDE
 			DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
 			this.handlers = default(DiscordRpc.EventHandlers);
 			DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
-			this.presence.details = "Editando: ";
-			this.presence.state = "Em: ";
-			this.presence.largeImageKey = "pawncoders";
-			this.presence.smallImageKey = "pawn";
-			this.presence.startTimestamp = 1507665886;
-			this.presence.endTimestamp = 1507665886;
+			this.presence.details = $"Editando: Nenhum arquivo";
+			this.presence.state = "Em: Sem diretorio";
+			this.presence.largeImageKey = "pawn";
+			this.presence.smallImageKey = "pawncoders";
 			this.presence.largeImageText = "Editando um arquivo .pwn";
 			this.presence.smallImageText = "Pawn Develop v0.1";
 			DiscordRpc.UpdatePresence(ref this.presence);
@@ -333,15 +355,11 @@ namespace PawnCoders_IDE
 			repositorioToolStripMenuItem.ForeColor = white;
 
 			//Alterando as cores do menu "editar"
-			desfazerToolStripMenuItem.BackColor = black;
-			refazerToolStripMenuItem.BackColor = black;
 			colarToolStripMenuItem.BackColor = black;
 			copiarToolStripMenuItem.BackColor = black;
 			deletarToolStripMenuItem.BackColor = black;
 			selecionarTudoToolStripMenuItem.BackColor = black;
 
-			desfazerToolStripMenuItem.ForeColor = white;
-			refazerToolStripMenuItem.ForeColor = white;
 			colarToolStripMenuItem.ForeColor = white;
 			copiarToolStripMenuItem.ForeColor = white;
 			deletarToolStripMenuItem.ForeColor = white;
@@ -404,19 +422,20 @@ namespace PawnCoders_IDE
 			repositorioToolStripMenuItem.ForeColor = black;
 
 			//Alterando as cores do menu "editar"
-			desfazerToolStripMenuItem.BackColor = white;
-			refazerToolStripMenuItem.BackColor = white;
 			colarToolStripMenuItem.BackColor = white;
 			copiarToolStripMenuItem.BackColor = white;
 			deletarToolStripMenuItem.BackColor = white;
 			selecionarTudoToolStripMenuItem.BackColor = white;
 
-			desfazerToolStripMenuItem.ForeColor = black;
-			refazerToolStripMenuItem.ForeColor = black;
 			colarToolStripMenuItem.ForeColor = black;
 			copiarToolStripMenuItem.ForeColor = black;
 			deletarToolStripMenuItem.ForeColor = black;
 			selecionarTudoToolStripMenuItem.ForeColor = black;
+		}
+
+        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			richTextBox1.Cut();
 		}
     }
 }
