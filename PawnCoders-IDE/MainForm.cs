@@ -13,18 +13,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading.Tasks;
-using DiscordRpcDemo;
+using DiscordRPC;
 
 namespace PawnCoders_IDE
 {
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-
 	public partial class MainForm : Form
 	{
-		private DiscordRpc.EventHandlers handlers;
-		private DiscordRpc.RichPresence presence;
+		public DiscordRpcClient client;
 		public MainForm()
 		{
 			//
@@ -36,7 +34,6 @@ namespace PawnCoders_IDE
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
-		
 		void NovoToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			CriarNovo();
@@ -168,7 +165,7 @@ namespace PawnCoders_IDE
 					StreamReader reader = new StreamReader(ofd.FileName);
 
 					richTextBox1.Text = reader.ReadToEnd();
-					MessageBox.Show(ofd.FileName);
+					//MessageBox.Show(ofd.FileName);
 
 					Global.diretorio = ofd.FileName;
 
@@ -177,19 +174,17 @@ namespace PawnCoders_IDE
 					int total = words.Length - 1;
 					int total2 = words.Length - 3;
 
-					this.handlers = default(DiscordRpc.EventHandlers);
-					DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
-					this.handlers = default(DiscordRpc.EventHandlers);
-					DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
-					this.presence.details = $"Editando: {words[total]}";
-					this.presence.state = $"Em: {words[total2]}";
-					this.presence.largeImageKey = "pawncoders";
-					this.presence.smallImageKey = "pawn";
-					this.presence.startTimestamp = 1507665886;
-					this.presence.endTimestamp = 1507665886;
-					this.presence.largeImageText = "Editando um arquivo .pwn";
-					this.presence.smallImageText = "Pawn Develop v0.1";
-					DiscordRpc.UpdatePresence(ref this.presence);
+					client.SetPresence(new RichPresence()
+					{
+						Details = $"Trabalhando em {words[total2]}",
+						State = $"Editando {words[total]}",
+						Timestamps = Timestamps.FromTimeSpan(10),
+						Assets = new Assets()
+						{
+							LargeImageKey = "pawn",
+							LargeImageText = "Editando um arquivo .pwn"
+						}
+					});
 
 				}
 			}
@@ -247,9 +242,29 @@ namespace PawnCoders_IDE
 		
 		private void Compilar()
 		{
-			/*char[] delimiterChars = { '\\' };
+			char[] delimiterChars = { '\\' };
 			string[] words = Global.diretorio.Split(delimiterChars);
-			int total = words.Length - 2;*/
+
+			int[] total = new int[words.Length];
+			MessageBox.Show($"{words[total[0]]}");
+			MessageBox.Show($"{words.Length}");
+
+			int totals = 20;
+			while(totals > words.Length)
+			{
+				totals--;
+            }
+			totals -= 1;
+			if (totals < words.Length)
+			{
+				richTextBox2.Text += $"{words[total[totals]]}";
+				while (totals > 0)
+                {
+					totals--;
+					richTextBox2.Text += $"{words[total[totals]]}";
+				}
+				//total[totals] = words.Length - totals;
+			}
 
 			ProcessStartInfo startInfo = new ProcessStartInfo();
 			startInfo.FileName = "E:/Programacao/bleh/pawno/pawncc.exe";
@@ -279,17 +294,20 @@ namespace PawnCoders_IDE
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			this.handlers = default(DiscordRpc.EventHandlers);
-			DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
-			this.handlers = default(DiscordRpc.EventHandlers);
-			DiscordRpc.Initialize("833197504186023998", ref this.handlers, true, null);
-			this.presence.details = $"Editando: Nenhum arquivo";
-			this.presence.state = "Em: Sem diretorio";
-			this.presence.largeImageKey = "pawn";
-			this.presence.smallImageKey = "pawncoders";
-			this.presence.largeImageText = "Editando um arquivo .pwn";
-			this.presence.smallImageText = "Pawn Develop v0.1";
-			DiscordRpc.UpdatePresence(ref this.presence);
+			client = new DiscordRpcClient("833197504186023998");
+			client.Initialize();
+
+			client.SetPresence(new RichPresence()
+			{
+				Details = "Trabalhando em /",
+				State = "Editando /",
+				Timestamps = Timestamps.FromTimeSpan(10),
+				Assets = new Assets()
+				{
+					LargeImageKey = "pawn",
+					LargeImageText = "Ausente"
+				}
+			});
 		}
 
         private void escolherTemaToolStripMenuItem_Click(object sender, EventArgs e)
