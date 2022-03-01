@@ -327,7 +327,7 @@ namespace PawnCoders_IDE
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "Pawn Develop (0.2)";
+            this.Text = "Pawn Develop v0.3";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

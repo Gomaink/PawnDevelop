@@ -229,11 +229,7 @@ namespace PawnCoders_IDE
         {
 			try
 			{
-
 				string[] dir = Global.diretorio.Split('\\');
-
-				/*MessageBox.Show($"{dir[1]}");
-				MessageBox.Show($"{dir.Length}");*/
 
 				string s1 = "";
 				string s2 = "";
@@ -247,8 +243,6 @@ namespace PawnCoders_IDE
 					s1 += $"{dir[totals]}";
 					if (totals != dir.Length - 2)
 						s1 += "/";
-
-					//MessageBox.Show($"{dir[totals]}");
 				}
 
 				while (totals2 != dir.Length - 3)
@@ -260,17 +254,14 @@ namespace PawnCoders_IDE
 
 					if (totals2 == dir.Length - 3)
 						s2 += "/pawno/pawncc.exe";
-
-					//MessageBox.Show($"{s2}");
 				}
 
 				ProcessStartInfo startInfo = new ProcessStartInfo();
 				startInfo.FileName = $"{s2}";
 
-				//startInfo.Arguments = String.Format($"{Global.diretorio} {words[total]} -;+ -(+ -d3");
+				//startInfo.Arguments = "dir/main.pwn -Ddir/gamemodes -;+ -(+ -d3";
 				startInfo.Arguments = String.Format($"{Global.diretorio} -D{s1} -;+ -(+ -d3");
 
-				//startInfo.Arguments = "e:/Programacao/bleh/gamemodes/main.pwn -De:/Programacao/bleh/gamemodes -;+ -(+ -d3";
 				Process.Start(startInfo);
 			}
 			catch (Exception ex)
