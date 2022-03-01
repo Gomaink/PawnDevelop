@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using DiscordRPC;
 
 namespace PawnCoders_IDE
@@ -130,16 +131,16 @@ namespace PawnCoders_IDE
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 					StreamReader reader = new StreamReader(ofd.FileName);
-
 					richTextBox1.Text = reader.ReadToEnd();
-
 					Global.diretorio = ofd.FileName;
 
+					//ATUALIZANDO O DISCORD RPC
 					char[] delimiterChars = { '\\' };
 					string[] words = Global.diretorio.Split(delimiterChars);
 					int total = words.Length - 1;
 					int total2 = words.Length - 3;
 
+				
 					client.SetPresence(new RichPresence()
 					{
 						Details = $"Trabalhando em {words[total2]}",
@@ -152,6 +153,50 @@ namespace PawnCoders_IDE
 						}
 					});
 
+					//MOSTRANDO AS PASTAS AO LADO
+					string[] files = Directory.GetFiles(@"E:\Programacao\bleh");
+					string[] folders = Directory.GetDirectories(@"E:\Programacao\bleh");
+
+					int location = 50;
+					Label[] labelfol = new Label[folders.Length];
+					for (int i=0; i != folders.Length; i++)
+                    {
+						string[] foldername = folders[i].Split('\\');
+						//MessageBox.Show($"{foldername[3]}");
+
+						labelfol[i] = new Label();
+						location += 21;
+						labelfol[i].AutoSize = true;
+						labelfol[i].Font = new System.Drawing.Font("Segoe UI", 9F);
+						labelfol[i].ForeColor = System.Drawing.Color.White;
+						labelfol[i].Location = new System.Drawing.Point(17, location);
+						labelfol[i].Size = new System.Drawing.Size(73, 15);
+						labelfol[i].TabIndex = 3;
+						labelfol[i].Text = foldername[foldername.Length - 1];
+						labelfol[i].Cursor = System.Windows.Forms.Cursors.Hand;
+
+						this.Controls.Add(labelfol[i]);
+					}
+
+					Label[] labelfil = new Label[files.Length];
+					for (int i = 0; i != files.Length; i++)
+					{
+						string[] filename = files[i].Split('\\');
+						//MessageBox.Show($"{filename[3]}");
+
+						labelfil[i] = new Label();
+						location += 21;
+						labelfil[i].AutoSize = true;
+						labelfil[i].Font = new System.Drawing.Font("Segoe UI", 9F);
+						labelfil[i].ForeColor = System.Drawing.Color.White;
+						labelfil[i].Location = new System.Drawing.Point(17, location);
+						labelfil[i].Size = new System.Drawing.Size(73, 15);
+						labelfil[i].TabIndex = 3;
+						labelfil[i].Text = filename[filename.Length - 1];
+						labelfil[i].Cursor = System.Windows.Forms.Cursors.Hand;
+
+						this.Controls.Add(labelfil[i]);
+					}
 				}
 			}
 
@@ -251,9 +296,33 @@ namespace PawnCoders_IDE
 			}
 		}
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
+		public Regex keyWordsBlue = new Regex("#include|#pragma|stock |function |public |bool:|Float:|MySQL:|DB:|=|==|::|%s|%d|%f|%b|%i|then|else|true|while|break|case|switch|class|const|goto|void|0|1|2|3|4|5|6|7|8|9|<|>|!=");
 
+		private void ApplySyntaxHighlighting()
+		{
+			Color white = Color.FromName("ControlLight");
+			richTextBox1.ForeColor = white;
+
+			richTextBox1.SelectAll();
+			richTextBox1.SelectionColor = white;
+
+			richTextBox1.ScrollToCaret();
+			richTextBox1.Select(richTextBox1.Text.Length, 1);
+
+			int selPos = richTextBox1.SelectionStart;
+
+			foreach (Match keyWordMatch in keyWordsBlue.Matches(richTextBox1.Text))
+			{
+				richTextBox1.Select(keyWordMatch.Index, keyWordMatch.Length);
+				richTextBox1.SelectionColor = Color.Aqua;
+				richTextBox1.SelectionStart = selPos;
+				richTextBox1.SelectionColor = white;
+			}
+		}
+
+		private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+			ApplySyntaxHighlighting();
 		}
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -446,5 +515,10 @@ namespace PawnCoders_IDE
 				MessageBox.Show("Erro: " + ex.Message);
 			}
 		}
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
