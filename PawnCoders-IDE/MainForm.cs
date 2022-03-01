@@ -1,12 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: Samuel
- * Date: 24/03/2021
- * Time: 07:08
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,22 +9,12 @@ using DiscordRPC;
 
 namespace PawnCoders_IDE
 {
-	/// <summary>
-	/// Description of MainForm.
-	/// </summary>
 	public partial class MainForm : Form
 	{
 		public DiscordRpcClient client;
 		public MainForm()
 		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
 			InitializeComponent();
-			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
 		}
 		void NovoToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -102,7 +84,7 @@ namespace PawnCoders_IDE
 
 		void RepositorioToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			var result = MessageBox.Show("PawnDevelop é um programa open-source.\n\nhttps://github.com/Gomaink/PawnDevelop");
+			var result = MessageBox.Show("Pawn Develop é um programa open-source.\n\nhttps://github.com/Gomaink/PawnDevelop");
 			if (result == DialogResult.OK)
 			{
 				Process.Start("https://github.com/Gomaink/PawnDevelop");
@@ -150,7 +132,6 @@ namespace PawnCoders_IDE
 					StreamReader reader = new StreamReader(ofd.FileName);
 
 					richTextBox1.Text = reader.ReadToEnd();
-					//MessageBox.Show(ofd.FileName);
 
 					Global.diretorio = ofd.FileName;
 
@@ -435,11 +416,13 @@ namespace PawnCoders_IDE
 			copiarToolStripMenuItem.BackColor = white;
 			deletarToolStripMenuItem.BackColor = white;
 			selecionarTudoToolStripMenuItem.BackColor = white;
+			cortarToolStripMenuItem.BackColor = white;
 
 			colarToolStripMenuItem.ForeColor = black;
 			copiarToolStripMenuItem.ForeColor = black;
 			deletarToolStripMenuItem.ForeColor = black;
 			selecionarTudoToolStripMenuItem.ForeColor = black;
+			cortarToolStripMenuItem.ForeColor = black;
 		}
 
         private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
