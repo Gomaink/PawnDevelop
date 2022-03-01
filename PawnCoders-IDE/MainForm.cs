@@ -296,7 +296,7 @@ namespace PawnCoders_IDE
 			}
 		}
 
-		public Regex keyWordsBlue = new Regex("#include|#pragma|stock |function |public |bool:|Float:|MySQL:|DB:|=|==|::|%s|%d|%f|%b|%i|then|else|true|while|break|case|switch|class|const|goto|void|0|1|2|3|4|5|6|7|8|9|<|>|!=");
+		public Regex pawnkeys = new Regex("#include|#pragma|stock |function |public |bool:|Float:|MySQL:|DB:|=|==|::|%s|%d|%f|%b|%i|then|else|true|while|break|case|switch|class|const|goto|void|0|1|2|3|4|5|6|7|8|9|<|>|!=");
 
 		private void ApplySyntaxHighlighting()
 		{
@@ -311,7 +311,7 @@ namespace PawnCoders_IDE
 
 			int selPos = richTextBox1.SelectionStart;
 
-			foreach (Match keyWordMatch in keyWordsBlue.Matches(richTextBox1.Text))
+			foreach (Match keyWordMatch in pawnkeys.Matches(richTextBox1.Text))
 			{
 				richTextBox1.Select(keyWordMatch.Index, keyWordMatch.Length);
 				richTextBox1.SelectionColor = Color.Aqua;
