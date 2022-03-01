@@ -60,22 +60,7 @@ namespace PawnCoders_IDE
 				this.Close();
 			}
 		}
-		void FontesToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			try
-			{
-				OpenFileDialog ofd = new OpenFileDialog();
-				if (ofd.ShowDialog() == DialogResult.OK)
-				{
-					StreamReader reader = new StreamReader(ofd.FileName);
-					Global.diretorio = ofd.FileName;
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Erro: " + ex.Message);
-			}
-		}
+
 		void FerramentasToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			
@@ -178,7 +163,7 @@ namespace PawnCoders_IDE
 					{
 						Details = $"Trabalhando em {words[total2]}",
 						State = $"Editando {words[total]}",
-						Timestamps = Timestamps.FromTimeSpan(10),
+						Timestamps = Timestamps.Now,
 						Assets = new Assets()
 						{
 							LargeImageKey = "pawn",
@@ -241,40 +226,57 @@ namespace PawnCoders_IDE
 		}
 		
 		private void Compilar()
-		{
-			char[] delimiterChars = { '\\' };
-			string[] words = Global.diretorio.Split(delimiterChars);
-
-			int[] total = new int[words.Length];
-			MessageBox.Show($"{words[total[0]]}");
-			MessageBox.Show($"{words.Length}");
-
-			int totals = 20;
-			while(totals > words.Length)
+        {
+			try
 			{
-				totals--;
-            }
-			totals -= 1;
-			if (totals < words.Length)
-			{
-				richTextBox2.Text += $"{words[total[totals]]}";
-				while (totals > 0)
-                {
-					totals--;
-					richTextBox2.Text += $"{words[total[totals]]}";
+
+				string[] dir = Global.diretorio.Split('\\');
+
+				/*MessageBox.Show($"{dir[1]}");
+				MessageBox.Show($"{dir.Length}");*/
+
+				string s1 = "";
+				string s2 = "";
+
+				int totals = -1;
+				int totals2 = -1;
+
+				while (totals != dir.Length - 2)
+				{
+					totals++;
+					s1 += $"{dir[totals]}";
+					if (totals != dir.Length - 2)
+						s1 += "/";
+
+					//MessageBox.Show($"{dir[totals]}");
 				}
-				//total[totals] = words.Length - totals;
+
+				while (totals2 != dir.Length - 3)
+				{
+					totals2++;
+					s2 += $"{dir[totals2]}";
+					if (totals2 != dir.Length - 3)
+						s2 += "/";
+
+					if (totals2 == dir.Length - 3)
+						s2 += "/pawno/pawncc.exe";
+
+					//MessageBox.Show($"{s2}");
+				}
+
+				ProcessStartInfo startInfo = new ProcessStartInfo();
+				startInfo.FileName = $"{s2}";
+
+				//startInfo.Arguments = String.Format($"{Global.diretorio} {words[total]} -;+ -(+ -d3");
+				startInfo.Arguments = String.Format($"{Global.diretorio} -D{s1} -;+ -(+ -d3");
+
+				//startInfo.Arguments = "e:/Programacao/bleh/gamemodes/main.pwn -De:/Programacao/bleh/gamemodes -;+ -(+ -d3";
+				Process.Start(startInfo);
 			}
-
-			ProcessStartInfo startInfo = new ProcessStartInfo();
-			startInfo.FileName = "E:/Programacao/bleh/pawno/pawncc.exe";
-
-			//startInfo.Arguments = String.Format($"{Global.diretorio} {words[total]} -;+ -(+ -d3");
-			startInfo.Arguments = String.Format($"{0} -De:/Programacao/bleh/gamemodes -;+ -(+ -d3", Global.diretorio);
-
-			//startInfo.Arguments = "e:/Programacao/bleh/gamemodes/main.pwn -De:/Programacao/bleh/gamemodes -;+ -(+ -d3";
-			Process.Start(startInfo);
-			richTextBox2.Text += "\n"+startInfo.ToString();
+			catch (Exception ex)
+			{
+				MessageBox.Show("Erro: " + ex.Message);
+			}
 		}
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -301,7 +303,7 @@ namespace PawnCoders_IDE
 			{
 				Details = "Trabalhando em /",
 				State = "Editando /",
-				Timestamps = Timestamps.FromTimeSpan(10),
+				Timestamps = Timestamps.Now,
 				Assets = new Assets()
 				{
 					LargeImageKey = "pawn",
@@ -340,7 +342,6 @@ namespace PawnCoders_IDE
 
 			//Alterando a cor da barra dos menu's
 			menuStrip1.BackColor = black;
-			richTextBox2.BackColor = lgray;
 
 			//Alterando as cores do menu "arquivo"
 			novoToolStripMenuItem.BackColor = black;
@@ -354,10 +355,10 @@ namespace PawnCoders_IDE
 			sairToolStripMenuItem.ForeColor = white;
 
 			//Alterando as cores do menu "ferramentas"
-			fontesToolStripMenuItem.ForeColor = white;
+			definirArquivoToolStripMenuItem.ForeColor = white;
 			escolherTemaToolStripMenuItem.ForeColor = white;
 
-			fontesToolStripMenuItem.BackColor = black;
+			definirArquivoToolStripMenuItem.BackColor = black;
 			escolherTemaToolStripMenuItem.BackColor = black;
 
 			//Alterando as cores do menu "compilador"
@@ -407,7 +408,6 @@ namespace PawnCoders_IDE
 
 			//Alterando a cor da barra dos menu's
 			menuStrip1.BackColor = white;
-			richTextBox2.BackColor = lgray;
 
 			//Alterando as cores do menu "arquivo"
 			novoToolStripMenuItem.BackColor = white;
@@ -421,10 +421,10 @@ namespace PawnCoders_IDE
 			sairToolStripMenuItem.ForeColor = black;
 
 			//Alterando as cores do menu "ferramentas"
-			fontesToolStripMenuItem.ForeColor = black;
+			definirArquivoToolStripMenuItem.ForeColor = black;
 			escolherTemaToolStripMenuItem.ForeColor = black;
 
-			fontesToolStripMenuItem.BackColor = white;
+			definirArquivoToolStripMenuItem.BackColor = white;
 			escolherTemaToolStripMenuItem.BackColor = white;
 
 			//Alterando as cores do menu "compilador"
@@ -454,6 +454,23 @@ namespace PawnCoders_IDE
         private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			richTextBox1.Cut();
+		}
+
+        private void definirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			try
+			{
+				OpenFileDialog ofd = new OpenFileDialog();
+				if (ofd.ShowDialog() == DialogResult.OK)
+				{
+					StreamReader reader = new StreamReader(ofd.FileName);
+					Global.diretorio = ofd.FileName;
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Erro: " + ex.Message);
+			}
 		}
     }
 }

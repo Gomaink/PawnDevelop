@@ -52,7 +52,6 @@ namespace PawnCoders_IDE
             this.deletarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selecionarTudoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ferramentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escolherTemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.escuroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.claroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +61,7 @@ namespace PawnCoders_IDE
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repositorioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.definirArquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,7 +82,7 @@ namespace PawnCoders_IDE
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.richTextBox1.ShowSelectionMargin = true;
-            this.richTextBox1.Size = new System.Drawing.Size(1183, 704);
+            this.richTextBox1.Size = new System.Drawing.Size(1264, 659);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -206,23 +205,12 @@ namespace PawnCoders_IDE
             // ferramentasToolStripMenuItem
             // 
             this.ferramentasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fontesToolStripMenuItem,
             this.escolherTemaToolStripMenuItem});
             this.ferramentasToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.ferramentasToolStripMenuItem.Name = "ferramentasToolStripMenuItem";
             this.ferramentasToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.ferramentasToolStripMenuItem.Text = "Ferramentas";
             this.ferramentasToolStripMenuItem.Click += new System.EventHandler(this.FerramentasToolStripMenuItemClick);
-            // 
-            // fontesToolStripMenuItem
-            // 
-            this.fontesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.fontesToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.fontesToolStripMenuItem.Name = "fontesToolStripMenuItem";
-            this.fontesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fontesToolStripMenuItem.Text = "Definir arquivo";
-            this.fontesToolStripMenuItem.ToolTipText = "Definir arquivo a ser compilado";
-            this.fontesToolStripMenuItem.Click += new System.EventHandler(this.FontesToolStripMenuItemClick);
             // 
             // escolherTemaToolStripMenuItem
             // 
@@ -232,7 +220,7 @@ namespace PawnCoders_IDE
             this.claroToolStripMenuItem});
             this.escolherTemaToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.escolherTemaToolStripMenuItem.Name = "escolherTemaToolStripMenuItem";
-            this.escolherTemaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.escolherTemaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.escolherTemaToolStripMenuItem.Text = "Escolher tema";
             this.escolherTemaToolStripMenuItem.Click += new System.EventHandler(this.escolherTemaToolStripMenuItem_Click);
             // 
@@ -241,7 +229,7 @@ namespace PawnCoders_IDE
             this.escuroToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.escuroToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.escuroToolStripMenuItem.Name = "escuroToolStripMenuItem";
-            this.escuroToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.escuroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.escuroToolStripMenuItem.Text = "Escuro+";
             this.escuroToolStripMenuItem.Click += new System.EventHandler(this.escuroToolStripMenuItem_Click);
             // 
@@ -250,14 +238,15 @@ namespace PawnCoders_IDE
             this.claroToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.claroToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.claroToolStripMenuItem.Name = "claroToolStripMenuItem";
-            this.claroToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.claroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.claroToolStripMenuItem.Text = "Claro+";
             this.claroToolStripMenuItem.Click += new System.EventHandler(this.claroToolStripMenuItem_Click);
             // 
             // compiladorToolStripMenuItem
             // 
             this.compiladorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.compilarToolStripMenuItem});
+            this.compilarToolStripMenuItem,
+            this.definirArquivoToolStripMenuItem});
             this.compiladorToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.compiladorToolStripMenuItem.Name = "compiladorToolStripMenuItem";
             this.compiladorToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
@@ -269,7 +258,7 @@ namespace PawnCoders_IDE
             this.compilarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.compilarToolStripMenuItem.Name = "compilarToolStripMenuItem";
             this.compilarToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.compilarToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.compilarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.compilarToolStripMenuItem.Text = "Compilar";
             this.compilarToolStripMenuItem.Click += new System.EventHandler(this.CompilarToolStripMenuItemClick);
             // 
@@ -312,34 +301,25 @@ namespace PawnCoders_IDE
             this.sobreToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1183, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // richTextBox2
+            // definirArquivoToolStripMenuItem
             // 
-            this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.richTextBox2.Font = new System.Drawing.Font("Nirmala UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.ForeColor = System.Drawing.SystemColors.Window;
-            this.richTextBox2.HideSelection = false;
-            this.richTextBox2.Location = new System.Drawing.Point(0, 645);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox2.Size = new System.Drawing.Size(1166, 83);
-            this.richTextBox2.TabIndex = 8;
-            this.richTextBox2.Text = "";
-            this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
+            this.definirArquivoToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.definirArquivoToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.definirArquivoToolStripMenuItem.Name = "definirArquivoToolStripMenuItem";
+            this.definirArquivoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.definirArquivoToolStripMenuItem.Text = "Definir arquivo";
+            this.definirArquivoToolStripMenuItem.Click += new System.EventHandler(this.definirArquivoToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.ClientSize = new System.Drawing.Size(1183, 726);
-            this.Controls.Add(this.richTextBox2);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -347,7 +327,7 @@ namespace PawnCoders_IDE
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "Pawn Develop (0.1)";
+            this.Text = "Pawn Develop (0.2)";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -355,7 +335,6 @@ namespace PawnCoders_IDE
             this.PerformLayout();
 
         }
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ToolStripMenuItem arquivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem novoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
@@ -368,16 +347,16 @@ namespace PawnCoders_IDE
         private System.Windows.Forms.ToolStripMenuItem deletarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selecionarTudoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ferramentasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fontesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compiladorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compilarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ajudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem repositorioToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.ToolStripMenuItem escolherTemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem escuroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem claroToolStripMenuItem;
+        public System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem definirArquivoToolStripMenuItem;
     }
 }
