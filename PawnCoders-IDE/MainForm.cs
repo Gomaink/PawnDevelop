@@ -154,8 +154,22 @@ namespace PawnCoders_IDE
 					});
 
 					//MOSTRANDO AS PASTAS AO LADO
-					string[] files = Directory.GetFiles(@"E:\Programacao\bleh");
-					string[] folders = Directory.GetDirectories(@"E:\Programacao\bleh");
+
+					string[] dir = Global.diretorio.Split('\\');
+
+					string s1 = "";
+
+					int totals = -1;
+
+					while (totals != dir.Length - 3)
+					{
+						totals++;
+						s1 += $"{dir[totals]}";
+						if (totals != dir.Length - 3)
+							s1 += "/";
+					}
+					string[] files = Directory.GetFiles($"{s1}");
+					string[] folders = Directory.GetDirectories($"{s1}");
 
 					int location = 50;
 					Label[] labelfol = new Label[folders.Length];
